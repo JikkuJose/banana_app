@@ -15,3 +15,7 @@ Web app to learn Facebook login for web apps.
 * View the app in browser via the URL: `http://bapp.local:9393/`
 
 [developer_portal]: https://developers.facebook.com/apps/
+
+## Prerequisites
+
+Ruby version higher than 2.0.0
