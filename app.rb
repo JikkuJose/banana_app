@@ -6,12 +6,13 @@ require_relative './app/constants.rb'
 module Banana
   class App < Sinatra::Base
     use Rack::Session::Cookie, secret: COOKIE_SECRET
+    set :public_folder, File.dirname(__FILE__) + '/bower_components'
 
     get '/' do
       if logged_in?
-        haml :welcome_in
+        haml :welcome_in, layout: :layout
       else
-        haml :log_in
+        haml :log_in, layout: :layout
       end
     end
 
@@ -34,6 +35,11 @@ module Banana
 
     def logged_in?
       !session['access_token'].nil?
+    end
+
+    def toggle_access
+      p logged_in?
+      logged_in? ? '/log_out' : '/log_in'
     end
   end
 end

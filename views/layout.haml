@@ -1,0 +1,13 @@
+%head
+  %link{rel: "stylesheet", type: 'text/css', href: './semantic/dist/semantic.min.css'}
+  %script{src: './semantic/dist/semantic.min.js'}
+%body
+  .ui.attached.stackable.menu
+    .ui.container
+      %a.item
+        Banana App
+      %a.right.item{href: toggle_access}
+        %i.facebook.icon
+        = logged_in? ? 'Logout' : 'Login'
+  .ui.container
+    = yield
