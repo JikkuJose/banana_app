@@ -31,7 +31,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   haml
-  koala
+  koala (~> 2.2)
   redcarpet
   shotgun
   sinatra

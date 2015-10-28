@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'koala'
+gem 'koala', "~> 2.2"
 gem 'dotenv'
 gem 'sinatra'
 gem 'shotgun'
