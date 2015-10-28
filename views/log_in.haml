@@ -2,6 +2,10 @@
   .row
   .row
     .column.centered
-      .ui.blue.message
-        :markdown
-          You can sign up for Banana App using your **Facebook** account!
+      .ui.message{class: errored? ? 'red' : 'blue'}
+        - if errored?
+          :markdown
+            Seems you denied access? Try again if it was unintentional.
+        - else
+          :markdown
+            You can sign up for Banana App using your **Facebook** account!

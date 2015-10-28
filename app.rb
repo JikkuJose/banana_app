@@ -29,8 +29,21 @@ module Banana
     end
 
     get '/call_back' do
-      session['access_token'] = session['oauth'].get_access_token(params[:code])
+      begin
+        session['access_token'] = session['oauth'].get_access_token(params[:code])
+      rescue
+        redirect '/?error=user_denied'
+      end
       redirect '/'
+    end
+
+    get '/test' do
+      if logged_in?
+        p graph.get_object("rakeshbs")
+        "e"
+      else
+        redirect '/'
+      end
     end
 
     def logged_in?
@@ -38,7 +51,6 @@ module Banana
     end
 
     def toggle_access
-      p logged_in?
       logged_in? ? '/log_out' : '/log_in'
     end
 
@@ -46,12 +58,16 @@ module Banana
       @graph ||= Koala::Facebook::API.new(session['access_token'])
     end
 
-    def full_name
-      @full_name ||= graph.get_object("me")["name"]
+    def errored?
+      !params["error"].nil?
     end
 
-    def first_name
-      full_name.split.first
+    def user
+      p graph.get_connections(:me, :photos)
+      @user ||= OpenStruct.new(
+        name: graph.get_object("me")["name"],
+        photo: 'http://semantic-ui.com/images/avatar/small/elliot.jpg'
+      )
     end
   end
 end

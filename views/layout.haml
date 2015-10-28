@@ -6,8 +6,13 @@
     .ui.container
       %a.item
         Banana App
-      %a.right.item{href: toggle_access}
-        %i.facebook.icon
-        = logged_in? ? 'Logout' : 'Login'
+      - if logged_in?
+        %a.item.right
+          %img{:src => user.photo, style: 'padding-right: 10px'}
+          = user.name
+      - else
+        %a.item.right{href: toggle_access}
+          %i.facebook.icon
+          Login / Signup
   .ui.container
     = yield
