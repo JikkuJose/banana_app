@@ -41,5 +41,17 @@ module Banana
       p logged_in?
       logged_in? ? '/log_out' : '/log_in'
     end
+
+    def graph
+      @graph ||= Koala::Facebook::API.new(session['access_token'])
+    end
+
+    def full_name
+      @full_name ||= graph.get_object("me")["name"]
+    end
+
+    def first_name
+      full_name.split.first
+    end
   end
 end
