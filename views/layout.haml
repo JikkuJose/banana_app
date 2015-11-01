@@ -3,20 +3,18 @@
   %script{src: './semantic/dist/semantic.min.js'}
   %script{src: './semantic/dist/script.js'}
   %link{rel: "stylesheet", type: 'text/css', href: './semantic/dist/semantic.min.css'}
-
 %body
   .ui.attached.stackable.menu
     .ui.container
-      %a.item
+      %a.item.title
         Banana App
       - if logged_in?
-        %a.item.right
+        .ui.dropdown.item.right
           %img{:src => user.photo, style: 'padding-right: 10px'}
           = user.name
-        .ui.flowing.popup.top.left.transition.hidden
-          .ui.one.column.divided.center.aligned.grid
-            .column
-              %a.ui.button{href: '/log_out'} Logout
+          %i.dropdown.icon
+          .menu
+            .item.log_out Logout
       - else
         %a.item.right{href: toggle_access}
           %i.facebook.icon
