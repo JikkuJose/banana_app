@@ -37,15 +37,6 @@ module Banana
       redirect '/'
     end
 
-    get '/test' do
-      if logged_in?
-        p graph.get_object("rakeshbs")
-        "e"
-      else
-        redirect '/'
-      end
-    end
-
     def logged_in?
       !session['access_token'].nil?
     end
@@ -63,10 +54,13 @@ module Banana
     end
 
     def user
-      p graph.get_connections(:me, :photos)
+      if @user.nil?
+      user_data = graph.get_object('me', { fields: 'id,first_name,last_name,gender,birthday,photos,picture'})
+      end
+
       @user ||= OpenStruct.new(
-        name: graph.get_object("me")["name"],
-        photo: 'http://semantic-ui.com/images/avatar/small/elliot.jpg'
+        name: user_data["first_name"],
+        photo: user_data["picture"]["data"]["url"]
       )
     end
   end
