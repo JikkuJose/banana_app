@@ -7,6 +7,7 @@ module Banana
   class App < Sinatra::Base
     use Rack::Session::Cookie, secret: COOKIE_SECRET
     set :public_folder, File.dirname(__FILE__) + '/bower_components'
+    set :bind, '0.0.0.0'
 
     get '/' do
       if logged_in?
